@@ -54,16 +54,17 @@ class HomeViewModel(private val repository: MovieRepository) : ViewModel() {
         }
     }
 
-    fun getCategories() {
-        viewModelScope.launch(Dispatchers.IO) {
-            when (val result = repository.getCategories()) {
-                is Result.Succes -> {
-                    _categories.postValue(result.data)
+    suspend fun getCategories(): Result<List<Category>> {
+        return when(val result = online.getCategories()) {
+            is Result.Succes -> {
+                // On utilise la fonction map pour convertir les catégories de la réponse serveur
+                // en liste de categories d'objets de l'application
+                val categories = result.data.map {
+                    it.toCategory()
                 }
-                is Result.Error -> {
-                    _error.postValue(result.message)
-                }
+                Result.Succes(categories)
             }
+            is Result.Error -> result
         }
     }
 }
