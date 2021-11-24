@@ -2,6 +2,8 @@ package com.gmail.eamosse.idbdata.datasources
 
 import com.gmail.eamosse.idbdata.api.response.CategoryResponse
 import com.gmail.eamosse.idbdata.api.response.TokenResponse
+import com.gmail.eamosse.idbdata.api.response.parse
+import com.gmail.eamosse.idbdata.api.response.safeCall
 import com.gmail.eamosse.idbdata.api.service.MovieService
 import com.gmail.eamosse.idbdata.utils.Result
 
@@ -18,24 +20,11 @@ internal class OnlineDataSource(private val service: MovieService) {
      * Si [Result.Succes], tout s'est bien passé
      * Sinon, une erreur est survenue
      */
+
     suspend fun getToken(): Result<TokenResponse> {
-        return try {
+        return safeCall {
             val response = service.getToken()
-            if (response.isSuccessful) {
-                Result.Succes(response.body()!!)
-            } else {
-                Result.Error(
-                    exception = Exception(),
-                    message = response.message(),
-                    code = response.code()
-                )
-            }
-        } catch (e: Exception) {
-            Result.Error(
-                exception = e,
-                message = e.message ?: "No message",
-                code = -1
-            )
+            response.parse()
         }
     }
 

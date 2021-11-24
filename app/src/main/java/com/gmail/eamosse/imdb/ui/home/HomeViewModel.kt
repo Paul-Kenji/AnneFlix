@@ -10,7 +10,6 @@ import com.gmail.eamosse.idbdata.repository.MovieRepository
 import com.gmail.eamosse.idbdata.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
 
 /**
  * VM permettant de gérer les données de la vue
@@ -54,17 +53,16 @@ class HomeViewModel(private val repository: MovieRepository) : ViewModel() {
         }
     }
 
-    suspend fun getCategories(): Result<List<Category>> {
-        return when(val result = online.getCategories()) {
-            is Result.Succes -> {
-                // On utilise la fonction map pour convertir les catégories de la réponse serveur
-                // en liste de categories d'objets de l'application
-                val categories = result.data.map {
-                    it.toCategory()
+    fun getCategories() {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val result = repository.getCategories()) {
+                is Result.Succes -> {
+                    _categories.postValue(result.data)
                 }
-                Result.Succes(categories)
+                is Result.Error -> {
+                    _error.postValue(result.message)
+                }
             }
-            is Result.Error -> result
         }
     }
 }
