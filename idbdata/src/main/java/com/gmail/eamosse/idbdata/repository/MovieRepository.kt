@@ -1,9 +1,11 @@
 package com.gmail.eamosse.idbdata.repository
 
 import com.gmail.eamosse.idbdata.api.response.toCategory
+import com.gmail.eamosse.idbdata.api.response.toCategoryMovies
 import com.gmail.eamosse.idbdata.api.response.toEntity
 import com.gmail.eamosse.idbdata.api.response.toToken
 import com.gmail.eamosse.idbdata.data.Category
+import com.gmail.eamosse.idbdata.data.CategoryMovies
 import com.gmail.eamosse.idbdata.data.Token
 import com.gmail.eamosse.idbdata.datasources.LocalDataSource
 import com.gmail.eamosse.idbdata.datasources.OnlineDataSource
@@ -46,6 +48,20 @@ class MovieRepository : KoinComponent {
                     it.toCategory()
                 }
                 Result.Succes(categories)
+            }
+            is Result.Error -> result
+        }
+    }
+
+    suspend fun getMovies(id_genre: String): Result<List<CategoryMovies>> {
+        return when (val result = online.getMovies(id_genre)) {
+            is Result.Succes -> {
+                // On utilise la fonction map pour convertir les catégories de la réponse serveur
+                // en liste de categories d'objets de l'application
+                val movies = result.data.map {
+                    it.toCategoryMovies()
+                }
+                Result.Succes(movies)
             }
             is Result.Error -> result
         }

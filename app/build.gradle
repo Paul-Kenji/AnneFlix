@@ -36,6 +36,9 @@ android {
     dataBinding {
         enabled = true
     }
+    buildFeatures {
+        viewBinding true
+    }
 
 }
 
@@ -55,6 +58,8 @@ dependencies {
     // Koin for Kotlin
     implementation "org.koin:koin-core:$koin_version"
     implementation project(path: ':idbdata')
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
     testImplementation "org.koin:koin-test:$koin_version"
     implementation "org.koin:koin-androidx-scope:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
