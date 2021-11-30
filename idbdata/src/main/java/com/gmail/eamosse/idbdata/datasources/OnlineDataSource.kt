@@ -32,14 +32,12 @@ internal class OnlineDataSource(private val service: MovieService) {
     suspend fun getCategories(): Result<List<CategoryResponse.Genre>> {
         return safeCall {
             val response = service.getCategories()
-            if (response.isSuccessful) {
-                Result.Succes(response.body()!!.genres)
-            } else {
-                Result.Error(
-                    exception = Exception(),
-                    message = response.message(),
-                    code = response.code()
-                )
+            val res = response.parse()
+            when (res) {
+                is Result.Succes -> {
+                    Result.Succes(res.data.genres)
+                }
+                is Result.Error -> res
             }
         }
     }
@@ -47,14 +45,12 @@ internal class OnlineDataSource(private val service: MovieService) {
     suspend fun getMovies(id_genre: String): Result<List<ListMoviesResponse.GenreMovie>> {
         return safeCall {
             val response = service.getMovies(id_genre)
-            if (response.isSuccessful) {
-                Result.Succes(response.body()!!.genreMovies)
-            } else {
-                Result.Error(
-                    exception = Exception(),
-                    message = response.message(),
-                    code = response.code()
-                )
+            val res = response.parse()
+            when (res) {
+                is Result.Succes -> {
+                    Result.Succes(res.data.genreMovies)
+                }
+                is Result.Error -> res
             }
         }
     }
