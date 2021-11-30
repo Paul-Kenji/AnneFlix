@@ -71,9 +71,9 @@ class HomeViewModel(private val repository: MovieRepository) : ViewModel() {
         }
     }
 
-    fun getMovies(any: Any) {
+    fun getMovies(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            when (val result = repository.getMovies(any as String)) {
+            when (val result = repository.getMovies(id)) {
                 is Result.Succes -> {
                     _movies.postValue(result.data)
                 }

@@ -4,7 +4,7 @@ import com.gmail.eamosse.idbdata.data.CategoryMovies
 import com.google.gson.annotations.SerializedName
 
 internal data class ListMoviesResponse(
-    @SerializedName("result")
+    @SerializedName("results")
     val genreMovies: List<GenreMovie>,
 ) {
     data class GenreMovie(
