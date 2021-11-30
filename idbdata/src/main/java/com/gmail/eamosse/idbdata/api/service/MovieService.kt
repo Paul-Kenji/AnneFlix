@@ -5,6 +5,7 @@ import com.gmail.eamosse.idbdata.api.response.ListMoviesResponse
 import com.gmail.eamosse.idbdata.api.response.TokenResponse
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 internal interface MovieService {
     @GET("authentication/token/new")
@@ -13,6 +14,6 @@ internal interface MovieService {
     @GET("genre/movie/list")
     suspend fun getCategories(): Response<CategoryResponse>
 
-    @GET("discover/movie&with_genres={id_genre}")
-    suspend fun getMovies(id_genre: String): Response<ListMoviesResponse>
+    @GET("discover/movie")
+    suspend fun getMovies(@Query("with_genres")id_genre: String): Response<ListMoviesResponse>
 }

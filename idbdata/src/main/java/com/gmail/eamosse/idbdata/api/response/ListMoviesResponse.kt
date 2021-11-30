@@ -4,24 +4,18 @@ import com.gmail.eamosse.idbdata.data.CategoryMovies
 import com.google.gson.annotations.SerializedName
 
 internal data class ListMoviesResponse(
-    @SerializedName("genreMovies")
+    @SerializedName("result")
     val genreMovies: List<GenreMovie>,
 ) {
     data class GenreMovie(
-        @SerializedName("page")
-        val page: Int,
-        @SerializedName("results")
-        val results: List<Any>,
-        @SerializedName("total_results")
-        val total_results: Int,
-        @SerializedName("total_pages")
-        val total_pages: Int
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("original_title")
+        val original_title: String,
     )
 }
 
 internal fun ListMoviesResponse.GenreMovie.toCategoryMovies() = CategoryMovies(
-    page = page,
-    results = results,
-    total_results = total_results,
-    total_pages = total_pages
+    id = id,
+    original_title = original_title,
 )
