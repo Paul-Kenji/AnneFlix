@@ -12,10 +12,15 @@ internal data class ListMoviesResponse(
         val id: Int,
         @SerializedName("original_title")
         val original_title: String,
+        @SerializedName("poster_path")
+        val poster_path: String?
+
     )
 }
 
 internal fun ListMoviesResponse.GenreMovie.toCategoryMovies() = CategoryMovies(
     id = id,
     original_title = original_title,
+    poster_path = poster_path
 )
+
