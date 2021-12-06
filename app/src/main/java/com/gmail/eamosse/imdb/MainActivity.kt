@@ -10,7 +10,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.gmail.eamosse.idbdata.repository.MovieRepository
-import com.gmail.eamosse.imdb.ui.home.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -20,6 +19,9 @@ import org.koin.android.ext.android.inject
  * Activité principale de l'application
  * Ce sera la seule activité de l'application
  */
+
+var hello = 0
+
 class MainActivity : AppCompatActivity(), NavigationListener {
 
     val repository: MovieRepository by inject()

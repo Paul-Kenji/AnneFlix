@@ -12,6 +12,6 @@ sealed class Result<out T : Any> {
     data class Error(
         val exception: Throwable,
         val code: Int,
-        val message: String
+        val message: String,
     ) : Result<Nothing>()
 }

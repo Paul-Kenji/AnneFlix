@@ -6,46 +6,35 @@
     <data>
 
         <variable
-            name="item_movie"
-            type="com.gmail.eamosse.idbdata.data.CategoryMovies" />
+            name="item_param_movie"
+            type="com.gmail.eamosse.idbdata.data.Movie" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
-        android:id="@+id/item_button"
+        android:id="@+id/item_movie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:layout_marginEnd="2dp">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/movie_name"
+            android:id="@+id/movie_title"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:gravity="center"
-            android:text="@{item_movie.original_title}"
+            android:text="@{item_param_movie.overview}"
             android:textColor="@android:color/widget_edittext_dark"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageView2"
-            android:layout_width="105dp"
-            android:layout_height="167dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="223dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:text="" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
