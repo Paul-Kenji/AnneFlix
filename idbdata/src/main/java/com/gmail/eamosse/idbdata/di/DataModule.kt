@@ -76,17 +76,18 @@ private object NetworkXConfig {
                     dao
                 ).requestInterceptor
             )
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = if (BuildConfig.DEBUG) {
-                    HttpLoggingInterceptor.Level.BODY
-                } else {
-                    HttpLoggingInterceptor.Level.NONE
+            .addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    level = if (BuildConfig.DEBUG) {
+                        HttpLoggingInterceptor.Level.BODY
+                    } else {
+                        HttpLoggingInterceptor.Level.NONE
+                    }
                 }
-            })
+            )
             .readTimeout(30, TimeUnit.SECONDS)
             .connectTimeout(30, TimeUnit.SECONDS)
             .build()
-
     }
 }
 
@@ -95,7 +96,7 @@ private object NetworkXConfig {
  * Le token est récupéré dans la BDD
  */
 private class TokenInterceptor(
-    private val dao: TokenDao
+    private val dao: TokenDao,
 ) {
 
     val requestInterceptor = Interceptor { chain ->
@@ -114,7 +115,7 @@ private class TokenInterceptor(
  * Intercepteur qui modifie l'entête de chaque requête
  */
 class BasicInterceptor(
-    apiKey: String
+    apiKey: String,
 ) {
     val requestInterceptor = Interceptor { chain ->
         val original = chain.request()
