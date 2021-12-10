@@ -20,7 +20,6 @@ import org.koin.android.ext.android.inject
  * Ce sera la seule activité de l'application
  */
 
-var hello = 0
 
 class MainActivity : AppCompatActivity(), NavigationListener {
 

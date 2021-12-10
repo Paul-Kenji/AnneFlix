@@ -4,8 +4,8 @@ import com.gmail.eamosse.idbdata.data.Movie
 import com.google.gson.annotations.SerializedName
 
 internal data class MovieResponse(
-    @SerializedName("id")
-    val id: Int,
+    @SerializedName("imdb_id")
+    val id: String,
     @SerializedName("original_language")
     val original_language: String,
     @SerializedName("original_title")

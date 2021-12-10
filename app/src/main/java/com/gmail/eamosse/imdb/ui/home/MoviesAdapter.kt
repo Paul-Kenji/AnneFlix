@@ -6,7 +6,6 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.gmail.eamosse.idbdata.data.CategoryMovies
 import com.gmail.eamosse.imdb.databinding.FragmentMoviesBinding
-import com.gmail.eamosse.imdb.hello
 
 class MoviesAdapter(private val items: List<CategoryMovies>) :
     RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
@@ -28,9 +27,8 @@ class MoviesAdapter(private val items: List<CategoryMovies>) :
         holder.bind(items[position])
         holder.itemView.setOnClickListener {
             val action =
-                HomeSecondFragmentDirections.actionHomeSecondFragmentToThirdFragment(position.toString())
+                HomeSecondFragmentDirections.actionHomeSecondFragmentToThirdFragment(items[position].id.toString())
             Navigation.findNavController(it).navigate(action)
-            hello = getItemId(position).toInt()
         }
     }
 }
