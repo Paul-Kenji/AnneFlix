@@ -19,7 +19,7 @@ class HomeSecondFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentHomeSecondBinding.inflate(inflater, container, false)
         return binding.root
@@ -28,12 +28,6 @@ class HomeSecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        view.findViewById<TextView>(R.id.textview_home_second).text =
-//            getString(R.string.hello_home_second, args.myArg)
-
-//        view.findViewById<Button>(R.id.button_home_second).setOnClickListener {
-//            findNavController().navigate(R.id.action_HomeSecondFragment_to_HomeFragment)
-//        }
         with(homeViewModel) {
             getMovies(args.myArg)
 
