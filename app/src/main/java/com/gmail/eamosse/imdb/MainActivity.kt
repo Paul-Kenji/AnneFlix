@@ -60,4 +60,8 @@ class MainActivity : AppCompatActivity(), NavigationListener {
         // Finalement, on lie la bottom bar et la nav controller
         navView.setupWithNavController(navController)
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return findNavController(R.id.nav_host_fragment).navigateUp()
+    }
 }
