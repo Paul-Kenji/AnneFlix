@@ -10,6 +10,7 @@
         android:id="@+id/movie_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/colorBackground"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,17 +21,7 @@
         app:spanCount="4"
         tools:listitem="@layout/fragment_movies" />
 
-    <Button
-        android:id="@+id/button_home_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/previous"
-        app:layout_constraintBottom_toBottomOf="@+id/movie_list"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.955"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/movie_list"
-        app:layout_constraintVertical_bias="0.01" />
+
 
     <TextView
         android:id="@+id/textview_home_second"
@@ -38,7 +29,6 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/button_home_second"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

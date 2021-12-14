@@ -25,7 +25,7 @@
             android:layout_marginBottom="5dp"
             android:gravity="center"
             android:text="@{item_movie.original_title}"
-            android:textColor="@android:color/widget_edittext_dark"
+            android:textColor="@android:color/white"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
