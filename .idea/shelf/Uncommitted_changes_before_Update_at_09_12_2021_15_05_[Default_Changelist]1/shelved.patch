@@ -1,0 +1,146 @@
+Index: idbdata/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>apply plugin: 'com.android.library'\r\napply plugin: 'kotlin-android'\r\napply plugin: 'kotlin-android-extensions'\r\napply plugin: 'kotlin-kapt'\r\n\r\nandroid {\r\n    compileSdkVersion 29\r\n    buildToolsVersion \"29.0.3\"\r\n\r\n    defaultConfig {\r\n\r\n        minSdkVersion 24\r\n        targetSdkVersion 29\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n        consumerProguardFiles \"consumer-rules.pro\"\r\n\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        kotlinOptions {\r\n            jvmTarget = \"1.8\"\r\n        }\r\n    }\r\n\r\n}\r\n\r\ndependencies {\r\n\r\n    implementation fileTree(dir: \"libs\", include: [\"*.jar\"])\r\n    implementation \"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version\"\r\n    implementation 'androidx.core:core-ktx:1.2.0'\r\n    implementation 'androidx.appcompat:appcompat:1.1.0'\r\n\r\n    implementation \"org.koin:koin-core:$koin_version\"\r\n    testImplementation \"org.koin:koin-test:$koin_version\"\r\n    implementation \"org.koin:koin-androidx-scope:$koin_version\"\r\n    implementation \"org.koin:koin-androidx-viewmodel:$koin_version\"\r\n\r\n    implementation 'com.google.code.gson:gson:2.8.6'\r\n\r\n    //Room\r\n    implementation \"androidx.room:room-runtime:$room_version\"\r\n    kapt \"androidx.room:room-compiler:$room_version\"\r\n\r\n    //Retrofit\r\n    implementation \"com.squareup.retrofit2:retrofit:$retrofit\"\r\n    implementation \"com.squareup.retrofit2:converter-gson:$retrofit\"\r\n    implementation(\"com.squareup.okhttp3:logging-interceptor:4.4.0\")\r\n\r\n    // ViewModel\r\n    implementation \"androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version\"\r\n    // LiveData\r\n    implementation \"androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version\"\r\n\r\n    implementation \"androidx.recyclerview:recyclerview:1.1.0\"\r\n\r\n    testImplementation 'junit:junit:4.12'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.1'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/idbdata/build.gradle b/idbdata/build.gradle
+--- a/idbdata/build.gradle	
++++ b/idbdata/build.gradle	
+@@ -36,7 +36,6 @@
+ dependencies {
+ 
+     implementation fileTree(dir: "libs", include: ["*.jar"])
+-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+     implementation 'androidx.core:core-ktx:1.2.0'
+     implementation 'androidx.appcompat:appcompat:1.1.0'
+ 
+@@ -63,6 +62,9 @@
+ 
+     implementation "androidx.recyclerview:recyclerview:1.1.0"
+ 
++    implementation 'com.github.bumptech.glide:glide:4.8.0'
++    annotationProcessor'com.github.bumptech.glide:compiler:4.8.0'
++
+     testImplementation 'junit:junit:4.12'
+     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+Index: app/src/main/java/com/gmail/eamosse/imdb/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.gmail.eamosse.imdb\r\n\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport androidx.collection.arraySetOf\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.navigation.findNavController\r\nimport androidx.navigation.ui.AppBarConfiguration\r\nimport androidx.navigation.ui.setupActionBarWithNavController\r\nimport androidx.navigation.ui.setupWithNavController\r\nimport com.gmail.eamosse.idbdata.repository.MovieRepository\r\nimport com.gmail.eamosse.imdb.ui.home.HomeFragment\r\nimport com.google.android.material.bottomnavigation.BottomNavigationView\r\nimport kotlinx.coroutines.GlobalScope\r\nimport kotlinx.coroutines.launch\r\nimport org.koin.android.ext.android.inject\r\n\r\n/**\r\n * Activité principale de l'application\r\n * Ce sera la seule activité de l'application\r\n */\r\nclass MainActivity : AppCompatActivity(), NavigationListener {\r\n\r\n    val repository: MovieRepository by inject()\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        setContentView(R.layout.activity_main)\r\n        initNavController()\r\n        GlobalScope.launch {\r\n            Log.d(\"TOKEN\", repository.getToken().toString())\r\n        }\r\n    }\r\n\r\n    override fun showFragment(fragment: Fragment) {\r\n        supportFragmentManager.beginTransaction().apply {\r\n            replace(R.id.nav_host_fragment, fragment)\r\n            addToBackStack(null)\r\n        }.commit()\r\n    }\r\n\r\n    /**\r\n     * Méthode utilitaire permettant de gérer la navigation\r\n     */\r\n    private fun initNavController() {\r\n        // Instance de la bottom navigation\r\n        val navView: BottomNavigationView = findViewById(R.id.nav_view)\r\n        // Navigation controlleur, utilisée pour géter la navigation (ex. affichage de fragment)\r\n        val navController = findNavController(R.id.nav_host_fragment)\r\n        // Charger les éléments principaux de la bottom bar\r\n        val appBarConfiguration = AppBarConfiguration(\r\n            arraySetOf(\r\n                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications\r\n            )\r\n        )\r\n        // Indiquer les éléments principaux de la bottom bar\r\n        setupActionBarWithNavController(navController, appBarConfiguration)\r\n        // Finalement, on lie la bottom bar et la nav controller\r\n        navView.setupWithNavController(navController)\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/gmail/eamosse/imdb/MainActivity.kt b/app/src/main/java/com/gmail/eamosse/imdb/MainActivity.kt
+--- a/app/src/main/java/com/gmail/eamosse/imdb/MainActivity.kt	
++++ b/app/src/main/java/com/gmail/eamosse/imdb/MainActivity.kt	
+@@ -10,7 +10,6 @@
+ import androidx.navigation.ui.setupActionBarWithNavController
+ import androidx.navigation.ui.setupWithNavController
+ import com.gmail.eamosse.idbdata.repository.MovieRepository
+-import com.gmail.eamosse.imdb.ui.home.HomeFragment
+ import com.google.android.material.bottomnavigation.BottomNavigationView
+ import kotlinx.coroutines.GlobalScope
+ import kotlinx.coroutines.launch
+@@ -22,7 +21,7 @@
+  */
+ class MainActivity : AppCompatActivity(), NavigationListener {
+ 
+-    val repository: MovieRepository by inject()
++    private val repository: MovieRepository by inject()
+ 
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+Index: app/src/main/java/com/gmail/eamosse/imdb/ui/home/HomeFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.gmail.eamosse.imdb.ui.home\r\n\r\nimport android.os.Bundle\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.lifecycle.Observer\r\nimport com.gmail.eamosse.imdb.databinding.FragmentHomeBinding\r\nimport org.koin.androidx.viewmodel.ext.android.viewModel\r\n\r\nclass HomeFragment : Fragment() {\r\n    private val homeViewModel: HomeViewModel by viewModel()\r\n    private lateinit var binding: FragmentHomeBinding\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater,\r\n        container: ViewGroup?,\r\n        savedInstanceState: Bundle?,\r\n    ): View? {\r\n        binding = FragmentHomeBinding.inflate(inflater, container, false)\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n\r\n        with(homeViewModel) {\r\n            token.observe(\r\n                viewLifecycleOwner,\r\n                Observer {\r\n                    // récupérer les catégories\r\n                    getCategories()\r\n                }\r\n            )\r\n\r\n            categories.observe(\r\n                viewLifecycleOwner,\r\n                Observer {\r\n                    binding.categoryList.adapter = CategoryAdapter(it)\r\n                }\r\n            )\r\n\r\n            error.observe(\r\n                viewLifecycleOwner,\r\n                Observer {\r\n                    // afficher l'erreur\r\n                }\r\n            )\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/gmail/eamosse/imdb/ui/home/HomeFragment.kt b/app/src/main/java/com/gmail/eamosse/imdb/ui/home/HomeFragment.kt
+--- a/app/src/main/java/com/gmail/eamosse/imdb/ui/home/HomeFragment.kt	
++++ b/app/src/main/java/com/gmail/eamosse/imdb/ui/home/HomeFragment.kt	
+@@ -17,7 +17,7 @@
+         inflater: LayoutInflater,
+         container: ViewGroup?,
+         savedInstanceState: Bundle?,
+-    ): View? {
++    ): View {
+         binding = FragmentHomeBinding.inflate(inflater, container, false)
+         return binding.root
+     }
+Index: app/src/main/java/com/gmail/eamosse/imdb/ui/home/HomeSecondFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.gmail.eamosse.imdb.ui.home\r\n\r\nimport android.os.Bundle\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.lifecycle.Observer\r\nimport androidx.navigation.fragment.navArgs\r\nimport com.gmail.eamosse.imdb.databinding.FragmentHomeSecondBinding\r\nimport kotlinx.android.synthetic.main.fragment_home_second.*\r\nimport org.koin.androidx.viewmodel.ext.android.viewModel\r\n\r\nclass HomeSecondFragment : Fragment() {\r\n    private val homeViewModel: HomeViewModel by viewModel()\r\n    private val args: HomeSecondFragmentArgs by navArgs()\r\n    private lateinit var binding: FragmentHomeSecondBinding\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater,\r\n        container: ViewGroup?,\r\n        savedInstanceState: Bundle?,\r\n    ): View? {\r\n        // Inflate the layout for this fragment\r\n        binding = FragmentHomeSecondBinding.inflate(inflater, container, false)\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n\r\n//        view.findViewById<TextView>(R.id.textview_home_second).text =\r\n//            getString(R.string.hello_home_second, args.myArg)\r\n\r\n//        view.findViewById<Button>(R.id.button_home_second).setOnClickListener {\r\n//            findNavController().navigate(R.id.action_HomeSecondFragment_to_HomeFragment)\r\n//        }\r\n        with(homeViewModel) {\r\n            getMovies(args.myArg)\r\n\r\n            movies.observe(\r\n                viewLifecycleOwner,\r\n                Observer {\r\n                    binding.movieList.adapter = MoviesAdapter(it)\r\n                }\r\n            )\r\n\r\n            error.observe(\r\n                viewLifecycleOwner,\r\n                Observer {\r\n                    // afficher l'erreur\r\n                }\r\n            )\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/gmail/eamosse/imdb/ui/home/HomeSecondFragment.kt b/app/src/main/java/com/gmail/eamosse/imdb/ui/home/HomeSecondFragment.kt
+--- a/app/src/main/java/com/gmail/eamosse/imdb/ui/home/HomeSecondFragment.kt	
++++ b/app/src/main/java/com/gmail/eamosse/imdb/ui/home/HomeSecondFragment.kt	
+@@ -8,7 +8,6 @@
+ import androidx.lifecycle.Observer
+ import androidx.navigation.fragment.navArgs
+ import com.gmail.eamosse.imdb.databinding.FragmentHomeSecondBinding
+-import kotlinx.android.synthetic.main.fragment_home_second.*
+ import org.koin.androidx.viewmodel.ext.android.viewModel
+ 
+ class HomeSecondFragment : Fragment() {
+@@ -20,7 +19,7 @@
+         inflater: LayoutInflater,
+         container: ViewGroup?,
+         savedInstanceState: Bundle?,
+-    ): View? {
++    ): View {
+         // Inflate the layout for this fragment
+         binding = FragmentHomeSecondBinding.inflate(inflater, container, false)
+         return binding.root
+@@ -29,12 +28,6 @@
+     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+         super.onViewCreated(view, savedInstanceState)
+ 
+-//        view.findViewById<TextView>(R.id.textview_home_second).text =
+-//            getString(R.string.hello_home_second, args.myArg)
+-
+-//        view.findViewById<Button>(R.id.button_home_second).setOnClickListener {
+-//            findNavController().navigate(R.id.action_HomeSecondFragment_to_HomeFragment)
+-//        }
+         with(homeViewModel) {
+             getMovies(args.myArg)
+ 
+Index: .idea/jarRepositories.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"RemoteRepositoriesConfiguration\">\r\n    <remote-repository>\r\n      <option name=\"id\" value=\"central\" />\r\n      <option name=\"name\" value=\"Maven Central repository\" />\r\n      <option name=\"url\" value=\"https://repo1.maven.org/maven2\" />\r\n    </remote-repository>\r\n    <remote-repository>\r\n      <option name=\"id\" value=\"jboss.community\" />\r\n      <option name=\"name\" value=\"JBoss Community repository\" />\r\n      <option name=\"url\" value=\"https://repository.jboss.org/nexus/content/repositories/public/\" />\r\n    </remote-repository>\r\n    <remote-repository>\r\n      <option name=\"id\" value=\"BintrayJCenter\" />\r\n      <option name=\"name\" value=\"BintrayJCenter\" />\r\n      <option name=\"url\" value=\"https://jcenter.bintray.com/\" />\r\n    </remote-repository>\r\n    <remote-repository>\r\n      <option name=\"id\" value=\"Google\" />\r\n      <option name=\"name\" value=\"Google\" />\r\n      <option name=\"url\" value=\"https://dl.google.com/dl/android/maven2/\" />\r\n    </remote-repository>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/jarRepositories.xml b/.idea/jarRepositories.xml
+--- a/.idea/jarRepositories.xml	
++++ b/.idea/jarRepositories.xml	
+@@ -21,5 +21,20 @@
+       <option name="name" value="Google" />
+       <option name="url" value="https://dl.google.com/dl/android/maven2/" />
+     </remote-repository>
++    <remote-repository>
++      <option name="id" value="MavenRepo" />
++      <option name="name" value="MavenRepo" />
++      <option name="url" value="https://repo.maven.apache.org/maven2/" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="maven" />
++      <option name="name" value="maven" />
++      <option name="url" value="https://maven.google.com" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="maven" />
++      <option name="name" value="maven" />
++      <option name="url" value="https://meven.google.com" />
++    </remote-repository>
+   </component>
+ </project>
+\ No newline at end of file
