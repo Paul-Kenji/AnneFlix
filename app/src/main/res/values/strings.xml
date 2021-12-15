@@ -8,6 +8,10 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_group">About Us</string>
+    <string name="text_a">Axel LANDRE</string>
+    <string name="text_p">Paul Kenji BOCHATON</string>
+    <string name="text_j">Jules David</string>
+    <string name="text_h">Hé DU</string>
 
     <string name="home_second">Movie List</string>
     <string name="home_third">Information</string>
