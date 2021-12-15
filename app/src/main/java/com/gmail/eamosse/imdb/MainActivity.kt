@@ -20,7 +20,6 @@ import org.koin.android.ext.android.inject
  * Ce sera la seule activité de l'application
  */
 
-
 class MainActivity : AppCompatActivity(), NavigationListener {
 
     val repository: MovieRepository by inject()
