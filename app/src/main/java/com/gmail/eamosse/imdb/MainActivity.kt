@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity(), NavigationListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.AppTheme)
         setContentView(R.layout.activity_main)
         initNavController()
         GlobalScope.launch {
