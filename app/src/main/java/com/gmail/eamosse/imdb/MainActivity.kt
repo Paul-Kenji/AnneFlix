@@ -1,6 +1,7 @@
 package com.gmail.eamosse.imdb
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.collection.arraySetOf
@@ -27,6 +28,8 @@ class MainActivity : AppCompatActivity(), NavigationListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme)
+        Handler().postDelayed({
+        }, 2000)
         setContentView(R.layout.activity_main)
         initNavController()
         GlobalScope.launch {
