@@ -12,7 +12,10 @@
     <string name="text_p">Paul Kenji BOCHATON</string>
     <string name="text_j">Jules David</string>
     <string name="text_h">Hé DU</string>
-
+    <string name="category_a">Mes catégories de film préférées :</string>
+    <string name="movie_a">Mes films préférés :</string>
+    <string name="category_1">Science-Fiction</string>
+    <string name="category_2">Western</string>
     <string name="home_second">Movie List</string>
     <string name="home_third">Information</string>
 

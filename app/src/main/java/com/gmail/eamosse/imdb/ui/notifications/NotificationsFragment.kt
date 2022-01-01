@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.gmail.eamosse.imdb.R
 
@@ -25,23 +24,25 @@ class NotificationsFragment : Fragment(), View.OnClickListener {
         val root = inflater.inflate(R.layout.fragment_notifications, container, false)
         val textView: TextView = root.findViewById(R.id.text_notifications)
         val imageView: ImageView = root.findViewById(R.id.imageViewP)
+        val imageViewA: ImageView = root.findViewById(R.id.imageViewA)
         notificationsViewModel.text.observe(
             viewLifecycleOwner,
-            Observer {
+            {
                 textView.text = it
             }
         )
         imageView.setOnClickListener(this)
-
+        imageViewA.setOnClickListener(this)
         return root
     }
 
     override fun onClick(view: View?) {
         // Toast.makeText(getActivity(), "Text!", Toast.LENGTH_SHORT).show()
-        activity!!
+        requireActivity()
             .supportFragmentManager
             .beginTransaction()
             .replace(R.id.container, PkFragment())
+            .replace(R.id.container, AxelFragment())
             .commitNow()
     }
 }
