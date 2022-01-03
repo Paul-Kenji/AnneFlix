@@ -6,4 +6,7 @@ data class Movie(
     val original_title: String,
     val title: String,
     val overview: String?,
+    val vote_average: String,
+    val vote_count: String,
+    val runtime: String,
 )
