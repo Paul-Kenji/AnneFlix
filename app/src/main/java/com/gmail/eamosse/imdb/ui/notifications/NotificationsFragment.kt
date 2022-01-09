@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.gmail.eamosse.imdb.R
+import kotlinx.android.synthetic.main.fragment_axel.*
 
 class NotificationsFragment : Fragment(), View.OnClickListener {
 
@@ -36,13 +37,26 @@ class NotificationsFragment : Fragment(), View.OnClickListener {
         return root
     }
 
-    override fun onClick(view: View?) {
+    override fun onClick(v: View?) {
         // Toast.makeText(getActivity(), "Text!", Toast.LENGTH_SHORT).show()
-        requireActivity()
-            .supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.container, PkFragment())
-            .replace(R.id.container, AxelFragment())
-            .commitNow()
+        if (v != null) {
+            when (v.getId()) {
+                R.id.imageViewP -> {
+                    requireActivity()
+                        .supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.container, PkFragment())
+                        .commitNow()
+                }
+                R.id.imageViewA -> {
+                    requireActivity()
+                        .supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.container, AxelFragment())
+                        .commitNow()
+                }
+                else -> {}
+            }
+        }
     }
 }
