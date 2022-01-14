@@ -6,14 +6,14 @@
     <string name="hello_dashboard_second">Hello DashboardSecondFragment. Arg: %1$s</string>
     <string name="hello_notifications_second">Hello NotificationsSecondFragment. Arg: %1$s</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_now_playing_movies">Now Playing Movies</string>
     <string name="title_group">About Us</string>
     <string name="text_a">Axel LANDRE</string>
     <string name="text_p">Paul Kenji BOCHATON</string>
     <string name="text_j">Jules David</string>
     <string name="text_h">Hé DU</string>
-    <string name="category_a">Mes catégories de film préférées :</string>
-    <string name="movie_a">Mes films préférés :</string>
+    <string name="category_a">My favorite movie categories :</string>
+    <string name="movie_a">My favorite movies :</string>
     <string name="category_1">Science-Fiction</string>
     <string name="category_2">Western</string>
     <string name="home_second">Movie List</string>
