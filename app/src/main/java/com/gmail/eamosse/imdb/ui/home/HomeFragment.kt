@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.gmail.eamosse.imdb.databinding.FragmentHomeBinding
@@ -12,6 +13,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by viewModel()
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var mImageView: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater,

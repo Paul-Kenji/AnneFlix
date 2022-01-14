@@ -12,10 +12,13 @@ internal data class CategoryResponse(
         val id: Int,
         @SerializedName("name")
         val name: String,
+        @SerializedName("img")
+        val img: Int,
     )
 }
 
 internal fun CategoryResponse.Genre.toCategory() = Category(
     id = id,
-    name = name
+    name = name,
+    img = img
 )
